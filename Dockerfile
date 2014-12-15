@@ -9,5 +9,9 @@ RUN apt-get update \
   && mysql -uroot -e "UPDATE mysql.user SET password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE user='root'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" \
   && mysqladmin -uroot shutdown
 
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 EXPOSE 3306
+
 CMD ["mysqld_safe"]
